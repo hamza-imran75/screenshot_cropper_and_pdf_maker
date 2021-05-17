@@ -4,6 +4,7 @@
 from PIL import Image
 from os import listdir
 from os.path import isfile, join
+from os import getcwd
 import re
 from typing import List
 
@@ -71,15 +72,13 @@ def mergeFilesIntoPDF():
 		# Appends the image to a list after converting into RGB format
 		im_list.append(newImage);	
 
-
-	# This requires full path when creating the pdf file, else
-	# it gives error about not having the permission
-	pdfFileName = "/home/hamza/Python/image_croper_and_pdf_maker/overloading.pdf"
-
-	im_list[0].save(pdfFileName, "PDF" ,resolution=100.0, save_all=True, append_images=im_list[1:]) # Creates a pdf file
+	
+	
+	pdfFileName = "overloading.pdf"
+	# This saves the PDF in the current working directory
+	im_list[0].save(getcwd()+"/"+pdfFileName, "PDF" ,resolution=100.0, save_all=True, append_images=im_list[1:]) # Creates a pdf file
 
 	print("---Images Merged Into PDF---")
-
   
 if __name__ == "__main__":
 	cropImages()
