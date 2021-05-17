@@ -51,6 +51,36 @@ def cropImages():
 
 	print("---Images Cropped---")
 
+def mergeFilesIntoPDF():
+
+	print("---Merging Images Into PDF---")
+
+	im_list = []
+
+
+	for file in getFilesList():
+		
+		# Opens file to work on it
+		im = Image.open(folderContainingCroppedImages+file)
+		
+		# The following lines 3 lines help in converting the image to RGB
+		im.load() # required for png.split()
+		newImage = Image.new("RGB", im.size, (255, 255, 255))
+		newImage.paste(im, mask=im.split()[3]) # 3 is the alpha channel
+
+		# Appends the image to a list after converting into RGB format
+		im_list.append(newImage);	
+
+
+	# This requires full path when creating the pdf file, else
+	# it gives error about not having the permission
+	pdfFileName = "/home/hamza/Python/image_croper_and_pdf_maker/overloading.pdf"
+
+	im_list[0].save(pdfFileName, "PDF" ,resolution=100.0, save_all=True, append_images=im_list[1:]) # Creates a pdf file
+
+	print("---Images Merged Into PDF---")
+
   
 if __name__ == "__main__":
 	cropImages()
+	mergeFilesIntoPDF()
