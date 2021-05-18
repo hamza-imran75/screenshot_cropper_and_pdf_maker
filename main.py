@@ -52,12 +52,12 @@ def cropImages():
 
 	print("---Images Cropped---")
 
+
 def mergeFilesIntoPDF():
 
 	print("---Merging Images Into PDF---")
 
 	im_list = []
-
 
 	for file in getFilesList():
 		
@@ -72,14 +72,17 @@ def mergeFilesIntoPDF():
 		# Appends the image to a list after converting into RGB format
 		im_list.append(newImage);	
 
-	
-	
 	pdfFileName = "overloading.pdf"
 	# This saves the PDF in the current working directory
 	im_list[0].save(getcwd()+"/"+pdfFileName, "PDF" ,resolution=100.0, save_all=True, append_images=im_list[1:]) # Creates a pdf file
 
 	print("---Images Merged Into PDF---")
+
+
   
 if __name__ == "__main__":
-	cropImages()
-	mergeFilesIntoPDF()
+	if len(getFilesList()) > 0:	
+		cropImages()
+		mergeFilesIntoPDF()
+	else:
+		print("No files found in the images directory for cropping and merging")
